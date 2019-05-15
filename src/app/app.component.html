@@ -3,13 +3,19 @@
       <div class="col-lg-12">
         <h1 class="title">{{ title }}</h1>
       </div>
-      <div class="col-lg-12">
-        <nav class="nav">
-          <a routerLink="/graph" routerLinkActive="active">Graph</a>
-          <a routerLink="/add" routerLinkActive="active">Add</a>
-          <a routerLink="/settings" routerLinkActive="active">Add</a>
-        </nav>
-      </div>
+      <nav class="col-lg-12">
+        <ul class="nav nav-pills nav-fill">
+          <li class="nav-item">
+            <a routerLink="/graph" routerLinkActive="active" class="nav-link">Graph</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/add" routerLinkActive="active" class="nav-link">Add</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/settings" routerLinkActive="active" class="nav-link">Settings</a>
+          </li>
+        </ul>
+      </nav>
     </header>
 
     <router-outlet></router-outlet>

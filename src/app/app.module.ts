@@ -7,11 +7,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { LoggerService } from './logger.service';
 import { StateService } from './state.service';
+import { GraphComponent } from './graph/graph.component';
+import { SettingsComponent } from './settings/settings.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddDataComponent,
+    GraphComponent,
+    SettingsComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
