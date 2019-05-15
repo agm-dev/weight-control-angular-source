@@ -1,18 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AddDataComponent } from './add-data/add-data.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoggerService } from './logger.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AddDataComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    LoggerService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
