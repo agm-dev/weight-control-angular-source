@@ -53,4 +53,15 @@ export class StateService {
     this.state = localStorageValue ? JSON.parse(localStorageValue) : new State();
     this.logger.log('loaded state from localStorage', this.state);
   }
+
+  clear() {
+    if (typeof localStorage === 'undefined') {
+      this.logger.log('localStorage is not available');
+      return;
+    }
+
+    localStorage.clear();
+    this.state = new State();
+    this.logger.log('all data has been removed')
+  }
 }
