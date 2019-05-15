@@ -10,15 +10,25 @@ import { StateService } from '../state.service';
 })
 export class AddDataComponent implements OnInit {
 
-  addWeightForm = new FormGroup({
-    amount: new FormControl(undefined, Validators.required),
-    date: new FormControl('15/05/2019'),
-  });
+  private today:string;
+  addWeightForm:FormGroup;
 
   constructor(
     private logger:LoggerService,
     private state:StateService
-  ) {}
+  ) {
+    this.today = this.generateDefaultDate();
+    this.addWeightForm = new FormGroup({
+      amount: new FormControl(undefined, Validators.required),
+      date: new FormControl(this.today),
+    });
+  }
+
+  generateDefaultDate() {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    return now.toJSON().slice(0, 10);
+  }
 
   ngOnInit() {
   }
