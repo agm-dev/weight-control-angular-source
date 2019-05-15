@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from  'rxjs';
 import { LoggerService } from './logger.service';
 import { State } from './state';
 import { Weight } from './weight';
@@ -8,8 +9,10 @@ import { Weight } from './weight';
 })
 export class StateService {
 
-  private stateStorageKey = 'ng-app-state';
+  private stateStorageKey:string = 'ng-app-state';
   private state:State;
+  private dataStream = new Subject();
+  public dataStream$ = this.dataStream.asObservable();
 
   constructor(private logger:LoggerService) {
     this.load();
@@ -26,6 +29,7 @@ export class StateService {
     this.state.data = [...this.state.data, item];
     this.logger.log('added item to state.data', item);
     //this.state.data = this.state.data.sort() // TODO:
+    this.dataStream.next(item);
   }
 
   save() {
