@@ -4,7 +4,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddDataComponent } from './add-data/add-data.component';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { LoggerService } from './logger.service';
+import { StateService } from './state.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,7 @@ import { LoggerService } from './logger.service';
   ],
   providers: [
     LoggerService,
+    StateService,
   ],
   bootstrap: [AppComponent]
 })

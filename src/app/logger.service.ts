@@ -4,15 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 
-/*
-const prefix:string = '[ng-app]';
-
-function generateText(text:string, data?:any) {
-  const extra = typeof data !== 'undefined' ? JSON.stringify(data) : '';
-  return extra.length ? `${prefix} ${text} ${extra}` : `${prefix} ${text}`;
-}
-*/
-
 export class LoggerService {
 
   private prefix:string = '[ng-app]';
