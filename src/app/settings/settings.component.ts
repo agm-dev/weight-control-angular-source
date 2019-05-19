@@ -9,14 +9,17 @@ import { StateService } from '../state.service';
 
 export class SettingsComponent implements OnInit {
 
+  public clearDataMessage:string;
+
   constructor(
     private state:StateService
   ) {
-
+    this.clearDataMessage = '';
   }
 
   onClickClearData() {
     this.state.clear();
+    this.clearDataMessage = 'All the data has been removed';
   }
 
   ngOnInit() {
