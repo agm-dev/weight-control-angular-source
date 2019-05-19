@@ -12,6 +12,7 @@ export class AddDataComponent implements OnInit {
 
   private today:string;
   addWeightForm:FormGroup;
+  public stateMessage:string;
 
   constructor(
     private logger:LoggerService,
@@ -22,6 +23,7 @@ export class AddDataComponent implements OnInit {
       amount: new FormControl(undefined, Validators.required),
       date: new FormControl(this.today),
     });
+    this.stateMessage = '';
   }
 
   generateDefaultDate() {
@@ -39,8 +41,12 @@ export class AddDataComponent implements OnInit {
 
     // TODO: check date, to set to now if not valid value provided
 
+    this.stateMessage = 'Adding new weight...';
     this.state.addWeight(data);
     this.state.save();
+    this.addWeightForm.reset();
+    this.addWeightForm.setValue({ date: this.today, amount: '' });
+    this.stateMessage = 'Added new weight!';
   }
 
 }
