@@ -43,4 +43,8 @@ export class CSVService {
     this.downloadCSVContent(content, filename);
     return true;
   }
+
+  importData():boolean {
+    return false;
+  }
 }
