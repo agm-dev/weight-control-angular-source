@@ -7,4 +7,12 @@
       <p>{{ clearDataMessage }}</p>
     </div>
   </div>
+  <div class="p-2">
+    <h4>Export Data (CSV)</h4>
+    <p>Export your stored data as CSV file.</p>
+    <button class="btn btn-info btn-block" (click)="onClickExportData()">Export Data</button>
+    <div class="alert alert-success mt-3" role="alert" *ngIf="exportDataMessage.length" [ngClass]="{ 'alert-success': exportDataSuccess, 'alert-danger': !exportDataSuccess }">
+      <p>{{ exportDataMessage }}</p>
+    </div>
+  </div>
 </div>
