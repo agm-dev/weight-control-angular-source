@@ -8,8 +8,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 const routes: Routes = [
   { path: 'add', component: AddDataComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'graph', component: GraphComponent },
-  { path: '', redirectTo: '/graph', pathMatch: 'full' },
+  { path: '', component: GraphComponent },
+  { path: 'graph', redirectTo: '', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];
 
