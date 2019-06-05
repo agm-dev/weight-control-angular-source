@@ -1,4 +1,4 @@
 export class Weight {
-  date:number;
+  date:string;
   amount:number;
 }

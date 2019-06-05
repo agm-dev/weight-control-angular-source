@@ -25,11 +25,16 @@ export class StateService {
     return this.state[key];
   }
 
-  addWeight(item:Weight) {
+  addWeight(item:Weight):void {
     this.state.data = [...this.state.data, item];
     this.logger.log('added item to state.data', item);
     //this.state.data = this.state.data.sort() // TODO:
     this.dataStream.next(item);
+  }
+
+  setWeight(data:Weight[]):void {
+    this.state.data = data;
+    this.logger.log('set data in state.data', data);
   }
 
   save() {

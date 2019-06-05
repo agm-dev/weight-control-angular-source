@@ -9,6 +9,9 @@ import { Weight } from './weight';
 })
 export class CSVService {
 
+  protected ROWS_SEPARATOR = '\r\n';
+  protected FIELDS_SEPARATOR = ',';
+
   constructor(
     private logger:LoggerService,
     private state:StateService
@@ -18,10 +21,10 @@ export class CSVService {
 
   protected generateCSVContent(data:Weight[]):string {
     const lines:string[] = data.reduce(
-      (result, line) => [...result, `${line.date},${line.amount}`],
+      (result, line) => [...result, `${line.date}${this.FIELDS_SEPARATOR}${line.amount}`],
       []
     );
-    return lines.join('\r\n');
+    return lines.join(this.ROWS_SEPARATOR);
   }
 
   protected downloadCSVContent(content:string, filename:string):void {
@@ -44,7 +47,14 @@ export class CSVService {
     return true;
   }
 
-  importData():boolean {
-    return false;
+  parse(data:string):Weight[] {
+    const rows = data.split(this.ROWS_SEPARATOR);
+    return rows.reduce((result, row) => {
+      const fields = row.split(this.FIELDS_SEPARATOR);
+      const weight = new Weight();
+      weight.date = fields[0];
+      weight.amount = Number(fields[1]);
+      return [...result, weight];
+    }, []);
   }
 }

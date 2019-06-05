@@ -19,7 +19,7 @@
     <h4>Import Data (CSV)</h4>
     <p>Import an exported CSV file to load the data. This will overwrite your current data.</p>
     <div class="form-group">
-      <input type="file" class="form-control-file">
+      <input type="file" class="form-control-file" (change)="onFileChange($event)">
     </div>
     <button class="btn btn-warning btn-block" (click)="onClickImportData()">Import Data</button>
     <div class="alert alert-success mt-3" role="alert" *ngIf="importDataMessage.length" [ngClass]="{ 'alert-success': importDataSuccess, 'alert-danger': !importDataSuccess }">
