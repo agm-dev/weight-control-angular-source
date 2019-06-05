@@ -60,10 +60,19 @@ export class SettingsComponent implements OnInit {
   }
 
   onClickImportData():void {
+    if (!this.fileData.length) {
+      this.importDataSuccess = false;
+      const msg = 'There is no data to import';
+      this.importDataMessage = msg;
+      this.logger.log(msg);
+      return;
+    }
     const data = this.CSV.parse(this.fileData);
     this.state.setWeight(data);
     this.importDataSuccess = true;
-    this.importDataMessage = 'The data has been imported';
+    const msg = 'The data has been imported';
+    this.importDataMessage = msg;
+    this.logger.log(msg);
   }
 
   ngOnInit() {
