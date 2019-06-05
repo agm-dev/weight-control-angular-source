@@ -3,6 +3,7 @@ import { Subject } from  'rxjs';
 import { LoggerService } from './logger.service';
 import { State } from './state';
 import { Weight } from './weight';
+import { Goal } from './goal';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,11 @@ export class StateService {
   setWeight(data:Weight[]):void {
     this.state.data = data;
     this.logger.log('set data in state.data', data);
+  }
+
+  setGoal(initial:Weight, target:Weight):void {
+    this.state.goal = new Goal(initial, target);
+    this.logger.log('set goal to state.goal', this.state.goal);
   }
 
   save() {

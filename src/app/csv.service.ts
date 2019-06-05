@@ -51,9 +51,7 @@ export class CSVService {
     const rows = data.split(this.ROWS_SEPARATOR);
     return rows.reduce((result, row) => {
       const fields = row.split(this.FIELDS_SEPARATOR);
-      const weight = new Weight();
-      weight.date = fields[0];
-      weight.amount = Number(fields[1]);
+      const weight = new Weight(fields[0], Number(fields[1]));
       return [...result, weight];
     }, []);
   }

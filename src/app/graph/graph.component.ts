@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { LoggerService } from '../logger.service';
 import { StateService } from '../state.service';
 import { Weight } from '../weight';
+import { Goal } from '../goal';
 
 @Component({
   selector: 'app-graph',
@@ -33,12 +34,53 @@ export class GraphComponent implements OnInit, OnDestroy {
     }
   }
 
+  protected generateGoalLine(dates:string[], goal:Goal) {
+    const initialMs = (new Date(goal.initial.date)).getTime();
+    const targetMs = (new Date(goal.target.date)).getTime();
+    const day = 1000 * 60 * 60 * 24;
+    const days = (targetMs - initialMs) / day;
+    const initialAmount = goal.initial.amount;
+    const targetAmount = goal.target.amount;
+    const diff = (targetAmount - initialAmount) / days;
+
+    const goalLine = { x: [], y: [] };
+    const result = dates.reduce((result, date) => {
+      const dateMs = (new Date(date).getTime());
+      if (dateMs < initialMs || dateMs > targetMs) {
+        return result;
+      }
+
+      const diffDays = (dateMs - initialMs) / day;
+      const weight = initialAmount + (diff * diffDays);
+      const normalizedWeight = Math.round(weight * 10) / 10;
+      return { x: [...result.x, date], y: [...result.y, normalizedWeight] };
+    }, goalLine);
+
+    // add initial and final if not already there
+    const firstDateMs = (new Date(result.x[0])).getTime();
+    if (firstDateMs !== initialMs) {
+      result.x = [goal.initial.date, ...result.x];
+      result.y = [goal.initial.amount, ...result.y];
+    }
+    const lastDateMs = (new Date(result.x[result.x.length - 1])).getTime();
+    if (lastDateMs !== targetMs) {
+      result.x = [...result.x, goal.target.date];
+      result.y = [...result.y, goal.target.amount];
+    }
+
+    return result;
+  }
+
   getData() {
     const data = this.state.get('data');
+    const goal = this.state.get('goal');
     const x = data.map(item => item.date);
     const y = data.map(item => item.amount);
+    const goalLine = this.generateGoalLine(x, goal);
+    this.logger.log('goalLine', goalLine);
     return [
-      { x, y, type: 'scatter', mode: 'linex+points', marker: { color: 'red' }},
+      { x, y, type: 'scatter', mode: 'linex+points', marker: { color: 'red' }, name: 'weight'},
+      { x: goalLine.x, y: goalLine.y, type: 'scatter', mode: 'linex+points', marker: { color: 'blue' }, name: 'goal'},
     ];
   }
 
