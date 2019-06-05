@@ -6,7 +6,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: 'add', component: AddDataComponent },
+  { path: 'add', component: AddDataComponent, data: { type: 'add' }},
+  { path: 'goal', component: AddDataComponent, data: { type: 'goal' }},
   { path: 'settings', component: SettingsComponent },
   { path: '', component: GraphComponent },
   { path: 'graph', redirectTo: '', pathMatch: 'full' },

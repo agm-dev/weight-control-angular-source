@@ -76,12 +76,17 @@ export class GraphComponent implements OnInit, OnDestroy {
     const goal = this.state.get('goal');
     const x = data.map(item => item.date);
     const y = data.map(item => item.amount);
+    const graphData = [
+      { x, y, type: 'scatter', mode: 'linex+points', marker: { color: 'red' }, name: 'weight'},
+    ];
+
+    if (!goal) {
+      return graphData;
+    }
+
     const goalLine = this.generateGoalLine(x, goal);
     this.logger.log('goalLine', goalLine);
-    return [
-      { x, y, type: 'scatter', mode: 'linex+points', marker: { color: 'red' }, name: 'weight'},
-      { x: goalLine.x, y: goalLine.y, type: 'scatter', mode: 'linex+points', marker: { color: 'blue' }, name: 'goal'},
-    ];
+    return [...graphData, { x: goalLine.x, y: goalLine.y, type: 'scatter', mode: 'linex+points', marker: { color: 'blue' }, name: 'goal'}];
   }
 
   addData(item:Weight) {
