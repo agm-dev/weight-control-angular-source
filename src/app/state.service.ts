@@ -29,7 +29,17 @@ export class StateService {
   addWeight(item:Weight):void {
     this.state.data = [...this.state.data, item];
     this.logger.log('added item to state.data', item);
-    //this.state.data = this.state.data.sort() // TODO:
+    this.state.data = this.state.data.sort((a: Weight, b: Weight) => {
+      const aDate = new Date(a.date)
+      const bDate = new Date(b.date)
+      if (aDate > bDate) {
+        return 1;
+      }
+      if (bDate > aDate) {
+        return -1;
+      }
+      return 0;
+    })
     this.dataStream.next(item);
   }
 
